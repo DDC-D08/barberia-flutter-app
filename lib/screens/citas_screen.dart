@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/auth_provider.dart';
+import '../services/api_client.dart' as api_client;
 
 class CitasScreen extends StatefulWidget {
   const CitasScreen({super.key});
@@ -24,11 +25,12 @@ class _CitasScreenState extends State<CitasScreen> {
     final auth = Provider.of<AuthProvider>(context, listen: false);
     try {
       final resp = await auth.api.get('/api/citas');
-      final data = resp.data;
-      final list = (data['data'] as List<dynamic>?) ?? [];
+      final list = api_client.normalizeArrayResponse<dynamic>(resp.data);
       citas = list.map((e) => Map<String, dynamic>.from(e as Map)).toList();
     } catch (e) {
-      if (mounted) ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Error cargando citas: $e')));
+      if (mounted)
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text('Error cargando citas: $e')));
     } finally {
       if (mounted) setState(() => loading = false);
     }
@@ -49,17 +51,26 @@ class _CitasScreenState extends State<CitasScreen> {
                   final c = citas[i];
                   final service = c['service'] ?? c['servicio'] ?? '-';
                   final date = c['date'] ?? c['fecha'] ?? '-';
-                  final time = c['startTime'] ?? c['hora'] ?? c['start_time'] ?? '-';
-                  final barber = c['barberName'] ?? c['barbero'] ?? c['barber'] ?? '-';
+                  final time =
+                      c['startTime'] ?? c['hora'] ?? c['start_time'] ?? '-';
+                  final barber =
+                      c['barberName'] ?? c['barbero'] ?? c['barber'] ?? '-';
                   final client = c['clientName'] ?? c['cliente'] ?? '-';
                   final status = c['status'] ?? c['estado'] ?? '-';
                   return Card(
                     child: ListTile(
-                      contentPadding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
-                      title: Text(service, style: const TextStyle(fontWeight: FontWeight.w600)),
-                      subtitle: Text('$date $time\nBarbero: $barber\nCliente: $client', maxLines: 3, overflow: TextOverflow.ellipsis),
+                      contentPadding: const EdgeInsets.symmetric(
+                          vertical: 12, horizontal: 16),
+                      title: Text(service,
+                          style: const TextStyle(fontWeight: FontWeight.w600)),
+                      subtitle: Text(
+                          '$date $time\nBarbero: $barber\nCliente: $client',
+                          maxLines: 3,
+                          overflow: TextOverflow.ellipsis),
                       isThreeLine: true,
-                      trailing: Column(mainAxisAlignment: MainAxisAlignment.center, children: [Text(status.toString())]),
+                      trailing: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [Text(status.toString())]),
                     ),
                   );
                 },

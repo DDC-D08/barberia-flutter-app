@@ -61,6 +61,15 @@ GitHub Actions (opcional)
 
 Se incluye un workflow que compila la app y ejecuta `flutter analyze` y `flutter test` en cada push/PR a `main`.
 
+GitHub Pages
+------------
+
+Para publicar la app web:
+
+1. Crea el secret `API_BASE_URL` en GitHub con la URL pública del backend, por ejemplo `https://tu-backend.onrender.com/api`.
+2. Activa GitHub Pages en el repositorio y deja que el workflow `Deploy Flutter Web to GitHub Pages` haga el despliegue.
+3. Si cambias la URL del backend, actualiza el secret y vuelve a ejecutar el workflow.
+
 
 Pruebas rápidas:
 - Asegúrate de tener el backend corriendo en `http://localhost:8080`.
