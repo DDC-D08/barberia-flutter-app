@@ -12,7 +12,9 @@ class ApiClient {
   factory ApiClient({String? baseUrl}) {
     // Allow overriding with a compile-time environment variable when provided.
     const envBase = String.fromEnvironment('API_BASE_URL', defaultValue: '');
-    final resolvedBase = baseUrl ?? (envBase.isNotEmpty ? envBase : 'https://itchy-melons-build.loca.lt');
+    // Default to local backend for development. Can be overridden via
+    // `--dart-define=API_BASE_URL=...` or by passing `baseUrl` programmatically.
+    final resolvedBase = baseUrl ?? (envBase.isNotEmpty ? envBase : 'http://localhost:8080/api');
 
     final dio = Dio(BaseOptions(
       baseUrl: resolvedBase,
