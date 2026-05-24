@@ -1,0 +1,13 @@
+﻿{
+    "id":  6,
+    "barberId":  1,
+    "barberName":  "Carlos L??pez",
+    "clientName":  "Prueba Usuario 2",
+    "clientPhone":  "611111111",
+    "service":  "Corte",
+    "date":  "2026-05-22",
+    "startTime":  "10:00",
+    "duration":  30,
+    "estado":  "CREADA",
+    "createdAt":  "2026-05-21T19:34:32.0476678"
+}

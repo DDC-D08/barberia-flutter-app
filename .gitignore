@@ -1,0 +1,30 @@
+# Flutter/Dart/Pub
+.dart_tool/
+.gradle/
+.idea/
+.packages
+/.flutter-plugins
+/.flutter-plugins-dependencies
+build/
+/.pub-cache
+pubspec.lock
+
+# VS Code
+.vscode/
+
+# IntelliJ project files
+*.iml
+*.ipr
+*.iws
+
+# Keystore
+*.jks
+
+# Generated plugin registrant
+generated_plugin_registrant.dart
+
+# Crashlytics
+crashlytics-build.properties
+
+# macOS
+*.DS_Store
